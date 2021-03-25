@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.webkit.GeolocationPermissions;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebStorage;
@@ -73,9 +74,16 @@ public class FlutterWebView implements PlatformView, MethodCallHandler {
       return true;
     }
 
+    //进度
     @Override
     public void onProgressChanged(WebView view, int progress) {
       flutterWebViewClient.onLoadingProgress(progress);
+    }
+
+    //弹窗
+    @Override
+    public void onGeolocationPermissionsShowPrompt(final String origin, final GeolocationPermissions.Callback callback) {
+      callback.invoke(origin, true, true);
     }
   }
 
